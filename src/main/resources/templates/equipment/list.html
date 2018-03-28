@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  	<title>Bootstrap Example</title>
+  	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+  	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+  	<link rel="stylesheet" type="text/css" href="/css/custompage.css"/>
+  	<script src="/js/jquery.min.js"/>
+	<script src="/js/custompage.js"/> 
+  	<script src="/js/bootstrap.min.js"/>
+</head>
+<body>
+
+	<div sec:authorize="hasRole('ROLE_CLIENT')">
+		<div th:replace="/role/client :: nav"></div>
+	</div>
+
+	<div sec:authorize="hasRole('ROLE_REPAIRMAN')">
+		<div th:replace="/role/repairman :: nav"></div>
+	</div>
+
+	<div sec:authorize="hasRole('ROLE_ADMIN')">
+		<div th:replace="/role/admin :: nav"></div>
+	</div>
+
+	<div class="container-fluid">
+	    <div class="row">
+	
+	        <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+	            
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="btn-group">
+							<div class="btn-group">
+								<a href="#" id="selectEquipment" type="button" class="btn btn-primary">Podgląd</a>
+							</div>
+							<div class="btn-group" sec:authorize="hasAnyRole('ROLE_REPAIRMAN', 'ROLE_ADMIN')" >
+								<a  th:href="@{equipments/create}" id="addButton" type="button" class="btn btn-primary">Dodaj</a>
+								<a href="#" id="editEquipment" type="button" class="btn btn-primary">Edytuj</a>
+								<a href="#" id="deleteEquipment" type="button" class="btn btn-primary" onclick="deleteEquipment()">Usuń</a>
+							</div>
+
+				        </div>
+				    </div>
+				    <br/>
+					<br/>
+					<div id="deleteResponse"></div>
+				</div>
+	            
+	            <div class="row">
+	
+		            <div class="col-sm-12">
+		                <table class="table table-striped">
+		                    <thead>
+		                      <tr>
+		                        <th>Nr. sprzętu</th>
+		                        <th>Nazwa sprzętu</th>
+		                        <th>Właściciel</th>
+		                      </tr>
+		                    </thead>
+		                    <tbody>
+		                     <tr th:each="equipment : ${equipments}">
+		                        <td th:text="${equipment.id}">Nr. sprzętu</td>
+		                        <td th:text="${equipment.name}">Nazwa sprzętu</td>
+		                        <td th:text="${equipment.owner}">Właściciel</td>
+		                      </tr>
+		                    </tbody>
+		                </table>
+		            </div>
+
+					<div th:replace="/pagination :: div"></div>
+
+	            </div>            
+	        </div>
+	    </div>
+	</div>
+
+</body>
+</html>

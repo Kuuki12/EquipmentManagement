@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  	<title>Bootstrap Example</title>
+  	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+  	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+  	<link rel="stylesheet" type="text/css" href="/css/custompage.css"/>
+  	<script src="/js/jquery.min.js"/>
+	<script src="/js/custompage.js"/> 
+  	<script src="/js/bootstrap.min.js"/>
+</head>
+<body>
+
+	<div sec:authorize="hasRole('ROLE_CLIENT')">
+		<div th:replace="/role/client :: nav"></div>
+	</div>
+	
+	<div sec:authorize="hasRole('ROLE_REPAIRMAN')">
+		<div th:replace="/role/repairman :: nav"></div>
+	</div>
+
+	<div sec:authorize="hasRole('ROLE_ADMIN')">
+		<div th:replace="/role/admin :: nav"></div>
+	</div>
+
+	<div class="container-fluid">
+	    <div class="row">
+	
+	        <div class="col-sm-12 col-xs-12 col-md-12 col-lg-1">
+	        </div>
+
+			<div class="col-sm-12 col-xs-12 col-md-12 col-lg-10">
+				<h1 class="text-center" ><b>Raport z przebiegu konserwacji</b></h1>
+				<br/>
+				<form th:action="@{${url}}" method="post" enctype="multipart/form-data">
+
+					<label>Nazwa</label>
+					<input type="text" th:field="${report.name}" class="form-control" placeholder="Podaj nazwe"/>
+
+					<br/>
+
+					<div class="form-group" th:classappend="${#fields.hasErrors('${report.file}')} ? 'has-error'">
+						<label class="control-label">Plik</label>
+						<input type="file" th:field="${report.file}"/>
+						<label class="control-label" th:if="${#fields.hasErrors('${report.file}')}" th:errors="${report.file}"></label>
+					</div>
+
+					<label>Komentarz odnośnie konserwacji</label>
+					<textarea th:field="${report.description}" rows="10" class="form-control" placeholder="Komentarz..."></textarea>
+					<br/>
+
+					<br/>
+					<button type="submit" class="btn btn-success pull-right">Wyślij</button>
+					<a role="link" onclick="goBack();" class="btn btn-default pull-left">Wstecz</a>
+				</form>
+			</div>
+	        
+	        <div class="col-sm-12 col-xs-12 col-md-12 col-lg-1">
+	        </div>
+	    </div>
+	</div>
+    
+</body>
+</html>

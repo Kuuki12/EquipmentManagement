@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>Insert title here</title>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar2, #myNavbar1">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Nazwa firmy</a>
+    </div>
+    
+    <div class="collapse navbar-collapse lewe" id="myNavbar2">
+            <ul class="nav navbar-nav leftside-nav ">
+                <img src="http://placehold.it/1000x550" class="img-circle leftside-nav-user-picture" alt="Picture" width="150" height="150"/>
+                <li class="divider"></li>
+                <!--<li><a href="#">Strona główna</a></li>-->
+                
+                <li><a href="#" class="dropmenu" data-toggle="collapse" data-target="#dodaj, #lista">Sprzęt<span class="glyphicon glyphicon-chevron-right pull-right"></span></a></li>
+                <li class="submenu"><div id="dodaj" class="collapse"><a th:href="@{/equipments/create}">Dodaj</a></div></li>
+                <li class="submenu"><div id="lista" class="collapse"><a th:href="@{/equipments}">Lista</a></div></li>
+                
+                <li><a href="#" class="dropmenu" data-toggle="collapse" data-target="#nowe, #raport">Konserwacja<span class="glyphicon glyphicon-chevron-right pull-right"></span></a></li>
+                <li class="submenu"><div id="nowe" class="collapse"><a th:href="@{/maintenances/create}">Dodaj nową</a></div></li>
+                <li class="submenu"><div id="raport" class="collapse"><a th:href="@{/maintenances/doing}">Aktualnie robione</a></div></li>
+                <li class="submenu"><div id="raport" class="collapse"><a th:href="@{/maintenances/waiting}">Oczekujące</a></div></li>
+                <li class="submenu"><div id="raport" class="collapse"><a th:href="@{/maintenances/done}">Historia</a></div></li>
+                
+                <!--<li><a href="#" class="dropmenu" data-toggle="collapse" data-target="#rankingDzisiaj, #rankingTygodnia, #rankingMiesiaca, #rankingOgolnie">Pracownicy<span class="glyphicon glyphicon-chevron-right pull-right"></span></a></li>-->
+                <!--<li class="submenu"><div id="rankingDzisiaj" class="collapse"><a href="#about">Dzisiaj</a></div></li>-->
+                <!--<li class="submenu"><div id="rankingTygodnia" class="collapse"><a href="#about">Tygodnia</a></div></li>-->
+                <!--<li class="submenu"><div id="rankingMiesiaca" class="collapse"><a href="#about">Miesiąca</a></div></li>-->
+                <!--<li class="submenu"><div id="rankingOgolnie" class="collapse"><a href="#about">Ogólnie</a></div></li>-->
+                
+                <li><a th:href="@{/account/settings}">Ustawienia konta</a></li>
+                <li >
+		                <form th:action="@{/logout}" method="post">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"></input>
+							<button type="submit" class="btn btn-link" style="text-decoration: none;" > 
+							Wyloguj
+							</button>
+						</form>
+					</li>
+            </ul>
+        </div>
+    
+</nav>
+
+</body>
+</html>

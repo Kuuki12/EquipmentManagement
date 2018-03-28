@@ -1,0 +1,220 @@
+@CHARSET "UTF-8";
+      .pictureUser{
+          margin-top: 10px;
+          margin-bottom: 10px;
+      }
+
+      .text-wrapper{
+        word-wrap: break-word;
+      }
+
+      .nameUser{
+          margin-top: 25px;
+          text-align: left;
+      }
+
+      .img-wrapper img{
+          max-width: 100%;
+      }
+          
+      .item:hover{
+          background-color: aqua;
+      }
+      .item:active{
+          background-color: aquamarine;
+      }
+      .thumbnail{
+          margin: 10px;
+      }      
+
+      @media(max-width:768px) {
+          body {
+              margin-top: 105px;
+              padding-top: 15px;
+          }
+          footer {
+              position: absolute;
+              bottom: 0;
+              width: 100%;
+              background-color: #222;
+              /* Set the fixed height of the footer here */
+              height: 60px;
+              color: white;
+              padding: 15px !important;
+          }
+          .navbar-right{
+              margin-left: 0px;
+          }
+          .leftside-nav-user-picture{
+              margin-left: 40%;
+          }
+          .leftside-nav>li>a{
+              text-align: center;
+          }
+          .leftside-nav>li>div>a{
+              display: block;
+              padding-left: 0%;
+              padding-top: 10px;
+              padding-bottom: 10px;
+              width: 100%;
+              text-decoration: none;
+              color: gainsboro;
+              background-color: gray;
+              text-align: center !important;
+          }
+          .leftside-nav>li>form>button{
+              display: block;
+              padding-left: 0%;
+              padding-top: 10px;
+              padding-bottom: 10px;
+              width: 100%;
+              text-decoration: none;
+              color: gainsboro;
+              text-align: center !important;
+           }
+          .leftside-nav>li>form button:hover,
+          .leftside-nav>li>form button:focus {
+              outline: none;
+              background-color: green !important;
+          }
+
+          .leftside-nav li a:hover,
+          .leftside-nav li a:focus {
+              outline: none;
+              background-color: green !important;
+          }
+      }
+      
+      @media(min-width:768px) {
+          body {
+              margin-top: 50px;
+              padding-left: 200px;
+              padding-top: 15px;
+              width: 100%;
+          }
+          .navbar-right{
+              margin: 0px;
+          }
+          .leftside-nav {
+            position: fixed;
+            top: 50px;
+            left: 200px;
+            width: 200px;
+            margin-left: -200px;
+            border: none;
+            border-radius: 0;
+            border-top: 1px rgba(0,0,0,.5) solid;
+            overflow-y: auto;
+            background-color: #222;
+            /*background-color: #5A6B7D;*/
+            bottom: 0;
+            overflow-x: hidden;
+            padding-bottom: 40px;
+          }
+          .leftside-nav>li>a{
+              width: 200px;
+          }
+          .leftside-nav>li>div>a{
+              display: block;
+              padding: 10px 15px 10px 30px;
+              width: 200px;
+              text-decoration: none;
+              color: gainsboro;
+          }
+          .leftside-nav>li>form>button{
+              display: block;
+              padding: 10px 15px 10px 15px;
+              width: 200px;
+              text-decoration: none;
+              text-align: left;
+              color: gainsboro;
+          }
+          .leftside-nav li:hover,
+          .leftside-nav li:focus {
+              outline: none;
+              background-color: green !important;
+          }
+          .leftside-nav-user-picture{
+              margin: 25px;
+          }
+/*
+          footer {
+              position: absolute;
+              bottom: 0;
+              width: 100%;
+              background-color: #222;
+              margin-left: -200px !important;
+               Set the fixed height of the footer here 
+              height: 60px;
+              color: white;
+              padding: 15px !important;
+          }
+*/
+          #pagination{
+              position: absolute;
+              bottom: 90px;
+              width: 75%;
+              margin-left: -25px !important;
+              /* Set the fixed height of the footer here */
+              height: 60px;
+          }
+          #pagination>div>ul>li>a{
+              color: darkslategray;
+          }
+          #pagination>div>ul>li>a:hover{
+              color: white;
+              background-color: green;
+          }
+      }
+
+      footer {
+		position: relative;
+        margin-top: 20px; 
+        height: 50px;
+        color: white;
+        padding-top:20px;
+        background-color: #222;
+        text-align: center;
+      }
+      
+      .image-preview-input {
+		position: relative;
+		overflow: hidden;
+		margin: 0px;    
+		color: #333;
+		background-color: #fff;
+		border-color: #ccc;    
+	   }
+	   
+	.image-preview-input input[type=file] {
+		position: absolute;
+		top: 0;
+		right: 0;
+		margin: 0;
+		padding: 0;
+		font-size: 20px;
+		cursor: pointer;
+		opacity: 0;
+		filter: alpha(opacity=0);
+	}
+	
+	.image-preview-input-title {
+	    margin-left:2px;
+	}
+	
+	.selected{
+		background-color: darkgray !important;
+		color: white;
+	}
+	
+	.fieldError{
+		background-color: red;
+		color: yellow;
+	}
+
+	#preview-image{
+	    height: 200px;
+        width: 200px;
+
+	}
+

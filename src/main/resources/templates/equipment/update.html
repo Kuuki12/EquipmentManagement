@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  	<title>Bootstrap Example</title>
+  	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+  	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+  	<link rel="stylesheet" type="text/css" href="/css/custompage.css"/>
+  	<script src="/js/jquery.min.js"/>
+	<script src="/js/custompage.js"/> 
+  	<script src="/js/bootstrap.min.js"/>
+</head>
+<body>
+
+	<div sec:authorize="hasRole('ROLE_CLIENT')">
+		<div th:replace="/role/client :: nav"></div>
+	</div>
+
+	<div sec:authorize="hasRole('ROLE_REPAIRMAN')">
+		<div th:replace="/role/repairman :: nav"></div>
+	</div>
+
+	<div sec:authorize="hasRole('ROLE_ADMIN')">
+		<div th:replace="/role/admin :: nav"></div>
+	</div>
+	
+		<!--  Table with done maintenance-->
+	<div class="container-fluid">
+	    <div class="row">
+	
+	        <div class="col-sm-1 col-xs-1 col-md-1 col-lg-1">
+	        </div>
+	        
+	        <div class="col-sm-10 col-xs-10 col-md-10 col-lg-10">
+	            <div class="panel panel-default">
+	                <div class="panel-heading text-center"><h4>Edytowanie sprzętu</h4></div>
+	                <div class="panel-body">
+	                	<form th:action="@{${url}}" method="post" enctype="multipart/form-data">
+
+							<div class="form-group" th:classappend="${#fields.hasErrors('${equipment.name}')} ? 'has-error'">
+								<label class="control-label">Nazwa</label>
+								<input type="text" class="form-control" placeholder="Podaj nazwe sprzętu" th:field="${equipment.name}"/>
+								<label class="control-label" th:if="${#fields.hasErrors('${equipment.name}')}" th:errors="${equipment.name}"></label>
+							</div>
+
+							<div class="form-group" th:classappend="${#fields.hasErrors('${equipment.serialNumber}')} ? 'has-error'">
+								<label class="control-label">Numer seryjny</label>
+								<input type="text" class="form-control" placeholder="Podaj numer seryjny" th:field="${equipment.serialNumber}"/>
+								<label class="control-label" th:if="${#fields.hasErrors('${equipment.serialNumber}')}" th:errors="${equipment.serialNumber}"></label>
+							</div>
+
+							<div class="form-group" th:classappend="${#fields.hasErrors('${equipment.image}')} ? 'has-error'">
+								<label class="control-label">Zdjęcie</label>
+								<input type="file" th:field="${equipment.image}" onchange="readURL(this);" />
+								<label class="control-label" th:if="${#fields.hasErrors('${equipment.image}')}" th:errors="${equipment.image}"></label>
+								<img id="preview-image" th:src="${equipment.image}" />
+							</div>
+
+							<br/>
+
+							<div class="form-group" th:classappend="${#fields.hasErrors('${equipment.emailOwner}')} ? 'has-error'">
+								<label class="control-label">Nazwa konta właściciela</label>
+								<input type="text" class="form-control" placeholder="Podaj nazwe konta właściciela" th:field="${equipment.emailOwner}"/>
+								<label class="control-label" th:if="${#fields.hasErrors('${equipment.emailOwner}')}" th:errors="${equipment.emailOwner}"></label>
+							</div>
+
+							<div class="form-group" th:classappend="${#fields.hasErrors('${equipment.productionDate}')} ? 'has-error'">
+								<label class="control-label">Data produkcji</label>
+								<input th:value="${equipment.productionDate}" th:field="${equipment.productionDate}" type="date" class="form-control" />
+								<label class="control-label" th:if="${#fields.hasErrors('${equipment.productionDate}')}" th:errors="${equipment.productionDate}"></label>
+							</div>
+
+							<div class="form-group" th:classappend="${#fields.hasErrors('${equipment.priority}')} ? 'has-error' ">
+								<label class="control-label">Priorytet sprzętu</label>
+								<br/>
+								<label class="control-label" id="valuePriority">Aktualna wartość: 50</label>
+								<input th:field="${equipment.priority}" id="priority" type="range" name="points" min="0" max="100" class="form-control"/>
+								<label class="control-label" th:if="${#fields.hasErrors('${equipment.priority}')}" th:errors="${equipment.priority}"></label>
+							</div>
+
+							<div class="form-group" th:classappend="${#fields.hasErrors('${equipment.lastMaintenanceDate}')} ? 'has-error'">
+								<label class="control-label">Data ostatniej konserwacji</label>
+								<input th:value="${equipment.lastMaintenanceDate}" th:field="${equipment.lastMaintenanceDate}" type="date" class="form-control" />
+								<label class="control-label" th:if="${#fields.hasErrors('${equipment.lastMaintenanceDate}')}" th:errors="${equipment.lastMaintenanceDate}"></label>
+							</div>
+
+							<div class="form-group" th:classappend="${#fields.hasErrors('${equipment.maintenanceFrequency}')} ? 'has-error'">
+								<label class="control-label">Częstotliwość konserwowania(dni)</label>
+								<input th:value="${equipment.maintenanceFrequency}" th:field="${equipment.maintenanceFrequency}" type="number" class="form-control" />
+								<label class="control-label" th:if="${#fields.hasErrors('${equipment.maintenanceFrequency}')}" th:errors="${equipment.maintenanceFrequency}"></label>
+							</div>
+
+							<div class="form-group" th:classappend="${#fields.hasErrors('${equipment.description}')} ? 'has-error'">
+								<label class="control-label">Opis</label>
+								<textarea th:field="${equipment.description}" rows="10" class="form-control" placeholder="Opis..."></textarea>
+								<label class="control-label" th:if="${#fields.hasErrors('${equipment.description}')}" th:errors="${equipment.description}"></label>
+							</div>
+							<br/>
+
+		                    <a onclick="goBack();" role="button" class="btn btn-default pull-left">Wstecz</a>
+		                    <button type="submit" value="Upload" class="btn btn-primary pull-right">Zapisz</button> 
+		                    
+	                    </form>                     
+	                </div>
+	            </div>
+	        </div>
+	        
+	        <div class="col-sm-1 col-xs-1 col-md-1 col-lg-1">
+	        </div>
+	        
+	    </div>
+	</div>
+
+</body>
+</html>

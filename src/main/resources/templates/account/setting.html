@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  	<title>Bootstrap Example</title>
+  	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+  	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+  	<link rel="stylesheet" type="text/css" href="/css/custompage.css"/>
+  	<script src="/js/jquery.min.js"/>
+	<script src="/js/custompage.js"/> 
+  	<script src="/js/bootstrap.min.js"/>
+</head>
+<body>
+
+	<div sec:authorize="hasRole('ROLE_CLIENT')">
+		<div th:replace="/role/client :: nav"></div>
+	</div>
+	
+	<div sec:authorize="hasRole('ROLE_REPAIRMAN')">
+		<div th:replace="/role/repairman :: nav"></div>
+	</div>
+
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <div th:replace="/role/admin :: nav"></div>
+    </div>
+
+	<!--  Table with done maintenance-->
+<div class="container-fluid" >
+    <div class="row">
+
+        <div class="col-sm-12 col-xs-12 col-md-11 col-lg-11" >
+            
+            <!--<h1 class="text-center"><b>Profil użytkownika</b></h1>-->
+            <br/>
+            <div class="row">
+                
+                <div class="col-sm-12 col-xs-12 col-md-1 col-lg-1"></div>
+                
+                <div class="col-sm-12 col-xs-12 col-md-12 col-lg-8" style="background-color: whitesmoke;">
+                    <h1 class="text-center"><b>Profil użytkownika</b></h1>
+                    <br/>
+                    <br/>
+                    <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                        <label class="control-label col-sm-12 col-xs-12 col-md-6 col-lg-6">Imie: </label>
+                        <label class="control-label col-sm-12 col-xs-12 col-md-6 col-lg-6" th:text="${personalInformation.firstName}">Lukasz </label>
+                        <label class="control-label col-sm-12 col-xs-12 col-md-6 col-lg-6">Nazwisko: </label>
+                        <label class="control-label col-sm-12 col-xs-12 col-md-6 col-lg-6" th:text="${personalInformation.lastName}">Narbut </label>
+                        <br/>
+                        <br/>
+                    </div>
+
+                    <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                        <div class="list-group" id="account">
+
+                            <!-- Password -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a href="#collapse7" style="display: block;" data-toggle="collapse" data-parent="#account">Zmiana danych personalnych<span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
+                                </div>
+                                <div id="collapse7" class="panel-body collapse">
+                                    <div id="response-personal-information">
+                                    </div>
+                                    <label class="control-label col-sm-3 col-xs-12 col-md-3 col-lg-3">Imie:</label>
+                                    <div class="col-sm-9 col-xs-12 col-md-9 col-lg-9">
+                                        <input type="text" class="form-control" id="firstName" placeholder="Podaj nowe imie"/>
+                                    </div>
+                                    <br/>
+                                    <br/>
+                                    <label class="control-label col-sm-3 col-xs-12 col-md-3 col-lg-3">Nazwisko:</label>
+                                    <div class="col-sm-9 col-xs-12 col-md-9 col-lg-9">
+                                        <input type="text" class="form-control" id="lastName" placeholder="Podaj nowe nazwisko"/>
+                                    </div>
+                                    <br/>
+                                    <br/>
+                                    <button class="btn btn-success btn-block " type="button" onclick="changePersonalInformation()">Zapisz</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                            <div class="list-group" id="account">
+
+                                <!-- Password -->
+                                <div class="panel panel-default">
+
+                                    <div class="panel-heading">
+                                        <a href="#collapse8" style="display: block;" data-toggle="collapse" data-parent="#account">Zmiana hasła<span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
+                                    </div>
+
+                                    <div id="collapse8" class="panel-body collapse">
+                                        <div id="response-password">
+
+                                        </div>
+
+                                        <label class="control-label col-sm-3 col-xs-3 col-md-3 col-lg-3">Nowe hasło:</label>
+                                        <div class="col-sm-9 col-xs-9 col-md-9 col-lg-9">
+                                            <input type="password" class="form-control" id="password" placeholder="Podaj nowe hasło"/>
+                                        </div>
+                                        <br/>
+                                        <br/>
+                                        <label class="control-label col-sm-3 col-xs-3 col-md-3 col-lg-3">Powtórzone hasło:</label>
+                                        <div class="col-sm-9 col-xs-9 col-md-9 col-lg-9">
+                                            <input type="password" class="form-control" id="repeatedPassword" placeholder="Powtórz nowe hasło"/>
+                                        </div>
+                                        <br/>
+                                        <br/>
+                                        <button class="btn btn-success btn-block " onclick="changePassword()">Zapisz</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <br/>
+                    </div>
+
+                </div>
+                
+                <div class="col-sm-12 col-xs-12 col-md-1 col-lg-1"></div>
+                
+                <div class="col-sm-12 col-xs-12 col-md-6 col-lg-6" style="background-color: whitesmoke;">
+
+                </div>
+            
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

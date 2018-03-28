@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/custompage.css"/>
+    <script src="/js/jquery.min.js"/>
+    <script src="/js/custompage.js"/>
+    <script src="/js/bootstrap.min.js"/>
+</head>
+<body>
+
+<div sec:authorize="hasRole('ROLE_CLIENT')">
+    <div th:replace="/role/client :: nav"></div>
+</div>
+
+<div sec:authorize="hasRole('ROLE_REPAIRMAN')">
+    <div th:replace="/role/repairman :: nav"></div>
+</div>
+
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+    <div th:replace="/role/admin :: nav"></div>
+</div>
+
+<!--  Table with done maintenance-->
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-sm-1 col-xs-1 col-md-1 col-lg-1">
+        </div>
+
+        <div class="col-sm-10 col-xs-10 col-md-10 col-lg-10">
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">
+                    <h4>Dodawanie użytkownika</h4>
+                </div>
+                <div class="panel-body">
+                    <form th:action="@{/users/} + 'create'" method="post" enctype="multipart/form-data">
+
+                        <div class="form-group" th:classappend="${#fields.hasErrors('${user.email}')} ? 'has-error'">
+                            <label class="control-label">Email</label>
+                            <input type="text" class="form-control" placeholder="Podaj e-mail"
+                                   th:field="${user.email}"/>
+                            <label class="control-label" th:if="${#fields.hasErrors('${user.email}')}"
+                                   th:errors="${user.email}"></label>
+                        </div>
+
+                        <div class="form-group" th:classappend="${#fields.hasErrors('${user.password}')} ? 'has-error'">
+                            <label class="control-label">Hasło</label>
+                            <input type="password" class="form-control" placeholder="Podaj hasło"
+                                   th:field="${user.password}"/>
+                            <label class="control-label" th:if="${#fields.hasErrors('${user.password}')}"
+                                   th:errors="${user.password}"></label>
+                        </div>
+
+                        <div class="form-group"
+                             th:classappend="${#fields.hasErrors('${user.firstName}')} ? 'has-error'">
+                            <label class="control-label">Imię</label>
+                            <input type="text" class="form-control" placeholder="Podaj imię"
+                                   th:field="${user.firstName}"/>
+                            <label class="control-label" th:if="${#fields.hasErrors('${user.firstName}')}"
+                                   th:errors="${user.firstName}"></label>
+                        </div>
+
+                        <div class="form-group" th:classappend="${#fields.hasErrors('${user.lastName}')} ? 'has-error'">
+                            <label class="control-label">Nazwisko</label>
+                            <input type="text" class="form-control" placeholder="Podaj nazwisko"
+                                   th:field="${user.lastName}"/>
+                            <label class="control-label" th:if="${#fields.hasErrors('${user.lastName}')}"
+                                   th:errors="${user.lastName}"></label>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sel1">Lista stanowisk:</label>
+                            <select class="form-control" id="sel1" th:field="${user.role}">
+                                <option th:each="role : ${T(pl.inzynierka.User.Domain.Role).values()}" th:value="${role}" th:text="${role.name}"></option>
+                            </select>
+                        </div>
+
+                        <a onclick="goBack();" role="button" class="btn btn-default pull-left">Wstecz</a>
+                        <button type="submit" value="Upload" class="btn btn-primary pull-right">Zapisz</button>
+                        <!-- <input type="submit" value="Upload"/> -->
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-1 col-xs-1 col-md-1 col-lg-1">
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

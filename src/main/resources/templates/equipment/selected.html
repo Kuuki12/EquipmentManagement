@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  	<title>Bootstrap Example</title>
+  	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+  	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+  	<link rel="stylesheet" type="text/css" href="/css/custompage.css"/>
+  	<script src="/js/jquery.min.js"/>
+	<script src="/js/custompage.js"/>
+  	<script src="/js/bootstrap.min.js"/>
+</head>
+<body>
+
+	<div sec:authorize="hasRole('ROLE_CLIENT')">
+		<div th:replace="/role/client :: nav"></div>
+	</div>
+
+	<div sec:authorize="hasRole('ROLE_REPAIRMAN')">
+		<div th:replace="/role/repairman :: nav"></div>
+	</div>
+
+	<div sec:authorize="hasRole('ROLE_ADMIN')">
+		<div th:replace="/role/admin :: nav"></div>
+	</div>
+
+	<!--  Table with done maintenance-->
+	<div class="container-fluid">
+	    <div class="row">
+
+	        <div class="col-sm-1 col-xs-1 col-md-1 col-lg-1">
+	        </div>
+
+	        <div class="col-sm-10 col-xs-10 col-md-10 col-lg-10">
+
+	            <br/>
+	            <div class="row">
+	                <div class="panel panel-info">
+	                    <div class="panel-heading text-center"><h3 th:text="${equipment.name}">Tytuł konserwacji</h3></div>
+	                    <div class="panel-body">
+	                        <div class="row">
+	                            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+	                                <div class="img-wrapper">
+	                                    <img class="img-responsive" th:src="${equipment.image}" alt="Avatar"/>
+	                                </div>
+	                            </div>
+
+	                            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+	                                <br/>
+	                                <p th:text="'Właściciel: ' + ${equipment.emailOwner}" class="text-left"></p>
+	                                <p th:text="'Data produkcji: ' + ${equipment.productionDate}" class="text-left"></p>
+	                                <p th:text="'Numer seryjny: ' + ${equipment.serialNumber}" class="text-left"></p>
+	                                <p th:if="${equipment.lastMaintenanceDate != null}" th:text="'Data ostatniej konserwacji: ' + ${equipment.lastMaintenanceDate}" class="text-left"></p>
+	                                <p th:if="${equipment.maintenanceFrequency != null}" th:text="'Częstotliwość konserwacji sprzętu(dni): ' + ${equipment.maintenanceFrequency}" class="text-left"></p>
+	                                <p th:if="${equipment.dateOfMinimumDurability != null}" th:text="'Data ważności sprzętu: ' + ${equipment.dateOfMinimumDurability}" class="text-left"></p>
+									<p class="text-left">Opis: </p>
+									<p th:text="${equipment.description}" class="text-left text-wrapper" ></p>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+
+					<br/>
+					<h1 class="text-center">Lista konserwacji</h1>
+
+					<div class="col-sm-12">
+						<a href="#" id="selectMaintenance" type="button" class="btn btn-primary">Podgląd</a>
+						<table class="table table-striped">
+							<thead>
+							<tr>
+								<th>Nr. kons.</th>
+								<th>Nazwa</th>
+								<th>Progres</th>
+								<th>Data podjecia</th>
+								<th>Data oddania</th>
+								<th>Data ważności</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr th:each="maintenance : ${maintenances}">
+								<td th:text="${maintenance.id}"></td>
+								<td th:text="${maintenance.name}"></td>
+								<td th:text="${maintenance.progress.getName()}"></td>
+								<td th:if="${maintenance.dateTaken != null}" th:text="${#temporals.format(maintenance.dateTaken, 'dd-MM-yyyy HH:mm')}"></td>
+								<td th:if="${maintenance.dateTaken == null}">Brak</td>
+								<td th:if="${maintenance.dateDone != null}" th:text="${#temporals.format(maintenance.dateDone, 'dd-MM-yyyy HH:mm')}"></td>
+								<td th:if="${maintenance.dateDone == null}">Brak</td>
+								<td th:if="${maintenance.dateDone != null}" th:text="${#temporals.format(maintenance.equipment.dateOfMinimumDurability, 'dd-MM-yyyy')}"></td>
+								<td th:if="${maintenance.dateDone== null}">Brak</td>
+							</tr>
+							</tbody>
+						</table>
+						<br/>
+						<br/>
+						<br/>
+						<br/>
+						<br/>
+						<a role="link" onclick="goBack();" class="btn btn-default pull-left">Wstecz</a>
+					</div>
+
+
+
+
+	            </div>
+
+	        </div>
+
+	        <div class="col-sm-1 col-xs-1 col-md-1 col-lg-1">
+	        </div>
+	    </div>
+	</div>
+
+</body>
+</html>
